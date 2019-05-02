@@ -33,16 +33,18 @@ public class HomePage {
         searchOption.isDisplayed();
     }
 
-    public void searchBySong(String song) {
+    public HomePage searchBySong(String song) {
         searchOption.click();
         searchBox.sendKeys(song);
         driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+        return this;
     }
 
-    public WebElement waitAndReturnVideo(String song) {
+    public VideoPage selectVideo(String song) {
         By accessibilityId = MobileBy.AccessibilityId(song);
         WebElement video = new WebDriverWait(driver, 30)
                 .until(ExpectedConditions.presenceOfElementLocated(accessibilityId));
-        return video;
+        video.click();
+        return new VideoPage(driver);
     }
 }
